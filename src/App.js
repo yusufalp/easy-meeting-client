@@ -1,10 +1,15 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
+import Header from "./components/Header";
+import Home from "./components/Home";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import Home from "./components/Home";
-import Header from "./components/Header";
+import CreateEvent from "./components/CreateEvent";
+import JoinEvent from "./components/JoinEvent";
+import Dashboard from "./components/Dashboard";
+
+import { PATHNAMES } from "./constants";
 
 function App() {
   return (
@@ -12,9 +17,12 @@ function App() {
       <Header />
 
       <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route exact path={PATHNAMES.HOME} element={<Home />} />
+        <Route path={PATHNAMES.LOGIN} element={<Login />} />
+        <Route path={PATHNAMES.SIGNUP} element={<Signup />} />
+        <Route path={PATHNAMES.CREATE} element={<CreateEvent />} />
+        <Route path={PATHNAMES.JOIN} element={<JoinEvent />} />
+        <Route path={PATHNAMES.DASHBOARD} element={<Dashboard />} />
       </Routes>
     </div>
   );
