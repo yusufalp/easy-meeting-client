@@ -1,13 +1,22 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { PATHNAMES } from "../../constants";
 
 function Header() {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate(PATHNAMES.HOME)
+  };
 
   const handleNavigation = (route) => {
-    console.log(route);
+    if (route === PATHNAMES.LOGOUT) {
+      handleLogout();
+    } else {
+      navigate(route);
+    }
   };
 
   return (
@@ -25,42 +34,41 @@ function Header() {
             </li>
           </ul>
         ) : (
-            <ul>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => handleNavigation(PATHNAMES.CREATE)}
-                >
-                  Create Event
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => handleNavigation(PATHNAMES.JOIN)}
-                >
-                  Join Event
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => handleNavigation(PATHNAMES.DASHBOARD)}
-                >
-                  Dashboard
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => handleNavigation(PATHNAMES.LOGOUT)}
-                >
-                  Logout
-                </button>
-              </li>
-            </ul>
-          )
-        }
+          <ul>
+            <li>
+              <button
+                type="button"
+                onClick={() => handleNavigation(PATHNAMES.CREATE)}
+              >
+                Create Event
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                onClick={() => handleNavigation(PATHNAMES.JOIN)}
+              >
+                Join Event
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                onClick={() => handleNavigation(PATHNAMES.DASHBOARD)}
+              >
+                Dashboard
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                onClick={() => handleNavigation(PATHNAMES.LOGOUT)}
+              >
+                Logout
+              </button>
+            </li>
+          </ul>
+        )}
       </nav>
     </header>
   );
