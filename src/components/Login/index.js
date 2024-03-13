@@ -30,7 +30,6 @@ function Login() {
       });
 
       const result = await response.json();
-      console.log(result);
 
       if (result.success) {
         const user = result.data;

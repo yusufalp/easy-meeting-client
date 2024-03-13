@@ -7,8 +7,23 @@ function Header() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    navigate(PATHNAMES.HOME)
+  const handleLogout = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/api/auth/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        navigate(PATHNAMES.HOME);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleNavigation = (route) => {
