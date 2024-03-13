@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import { PATHNAMES } from "../../constants";
 
 function Login() {
   const [loginFormData, setLoginFormData] = useState({
@@ -7,15 +9,37 @@ function Login() {
     password: "",
   });
 
+  const navigate = useNavigate();
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
     setLoginFormData((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleLoginFormSubmit = (event) => {
+  const handleLoginFormSubmit = async (event) => {
     event.preventDefault();
-    console.log("Logging in...");
+
+    try {
+      const response = await fetch("http://localhost:8080/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginFormData),
+      });
+
+      const result = await response.json();
+      console.log(result);
+
+      if (result.success) {
+        const user = result.data;
+        console.log(user);
+        return navigate(`/${PATHNAMES.DASHBOARD}`);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
