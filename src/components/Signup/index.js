@@ -22,27 +22,32 @@ function Signup() {
   };
 
   return (
-    <div>
-      <h1>Signup</h1>
+    <div className="form-bg">
       <form onSubmit={handleSignupFormSubmit}>
-        <label htmlFor="firstName">First Name</label>
-        <input
-          type="text"
-          id="firstName"
-          name="firstName"
-          value={signupFormData.firstName}
-          onChange={(e) => handleInputChange(e)}
-          placeholder="First Name"
-        />
-        <label htmlFor="lastName">Last Name</label>
-        <input
-          type="text"
-          id="lastName"
-          name="lastName"
-          value={signupFormData.lastName}
-          onChange={(e) => handleInputChange(e)}
-          placeholder="Last Name"
-        />
+        <div className="group-row">
+          <div>
+            <label htmlFor="firstName">First Name</label>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              value={signupFormData.firstName}
+              onChange={(e) => handleInputChange(e)}
+              placeholder="Grace"
+            />
+          </div>
+          <div>
+            <label htmlFor="lastName">Last Name</label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              value={signupFormData.lastName}
+              onChange={(e) => handleInputChange(e)}
+              placeholder="Hopper"
+            />
+          </div>
+        </div>
         <label htmlFor="signup-email">Email</label>
         <input
           type="text"
@@ -50,29 +55,35 @@ function Signup() {
           name="email"
           value={signupFormData.email}
           onChange={(e) => handleInputChange(e)}
-          placeholder="Email"
+          placeholder="i.e. grace.hopper@email.com"
         />
-        <label htmlFor="signup-password">Password</label>
-        <input
-          type="password"
-          id="signup-password"
-          name="password"
-          value={signupFormData.password}
-          onChange={(e) => handleInputChange(e)}
-          placeholder="Password"
-        />
-        <label htmlFor="confirmPassword">Confirm Password</label>
-        <input
-          type="password"
-          id="confirmPassword"
-          name="confirmPassword"
-          value={signupFormData.confirmPassword}
-          onChange={(e) => handleInputChange(e)}
-          placeholder="Confirm Password"
-        />
+        <div className="group-row">
+          <div>
+            <label htmlFor="signup-password">Password</label>
+            <input
+              type="password"
+              id="signup-password"
+              name="password"
+              value={signupFormData.password}
+              onChange={(e) => handleInputChange(e)}
+              placeholder="Password"
+            />
+          </div>
+          <div>
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              value={signupFormData.confirmPassword}
+              onChange={(e) => handleInputChange(e)}
+              placeholder="Confirm Password"
+            />
+          </div>
+        </div>
         <button type="submit">Signup</button>
       </form>
-      <p>
+      <p className="form-link">
         Already have an account? <Link to="/login">Login</Link>
       </p>
     </div>

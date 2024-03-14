@@ -42,8 +42,7 @@ function Login() {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
+    <div className="form-bg">
       <form onSubmit={handleLoginFormSubmit}>
         <label htmlFor="login-email">Email</label>
         <input
@@ -52,7 +51,7 @@ function Login() {
           name="email"
           value={loginFormData.email}
           onChange={(e) => handleInputChange(e)}
-          placeholder="Email"
+          placeholder="i.e. grace.hopper@email.com"
         />
         <label htmlFor="login-password">Password</label>
         <input
@@ -65,7 +64,7 @@ function Login() {
         />
         <button type="submit">Login</button>
       </form>
-      <p>
+      <p className="form-link">
         Don't have an account? <Link to="/signup">Signup</Link>
       </p>
     </div>
