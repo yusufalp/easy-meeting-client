@@ -1,7 +1,9 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { PATHNAMES } from "../../constants";
+
+import "./Header.css";
 
 function Header() {
   const location = useLocation();
@@ -26,59 +28,28 @@ function Header() {
     }
   };
 
-  const handleNavigation = (route) => {
-    if (route === PATHNAMES.LOGOUT) {
-      handleLogout();
-    } else {
-      navigate(route);
-    }
-  };
-
   return (
     <header className="App-header">
       <nav>
         {location.pathname === PATHNAMES.HOME ? (
           <ul>
             <li>
-              <button
-                type="button"
-                onClick={() => handleNavigation(PATHNAMES.LOGIN)}
-              >
-                Login
-              </button>
+              <Link to={PATHNAMES.LOGIN}>Login</Link>
             </li>
           </ul>
         ) : (
           <ul>
             <li>
-              <button
-                type="button"
-                onClick={() => handleNavigation(PATHNAMES.CREATE)}
-              >
-                Create Event
-              </button>
+              <Link to={PATHNAMES.CREATE}>Create Event</Link>
             </li>
             <li>
-              <button
-                type="button"
-                onClick={() => handleNavigation(PATHNAMES.JOIN)}
-              >
-                Join Event
-              </button>
+              <Link to={PATHNAMES.JOIN}>Join Event</Link>
             </li>
             <li>
-              <button
-                type="button"
-                onClick={() => handleNavigation(PATHNAMES.DASHBOARD)}
-              >
-                Dashboard
-              </button>
+              <Link to={PATHNAMES.DASHBOARD}>Dashboard</Link>
             </li>
             <li>
-              <button
-                type="button"
-                onClick={() => handleNavigation(PATHNAMES.LOGOUT)}
-              >
+              <button type="button" onClick={() => handleLogout()}>
                 Logout
               </button>
             </li>
