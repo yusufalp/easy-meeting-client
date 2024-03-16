@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { login } from "../../store/features/authSlice";
+import { PATHNAMES } from "../../constants";
+import { validateEmail, validatePassword } from "../../utils";
 
 function Signup() {
   const [signupFormData, setSignupFormData] = useState({
@@ -10,15 +15,78 @@ function Signup() {
     confirmPassword: "",
   });
 
+  const [signupFormDataErrors, setSignupFormDataErrors] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const validateFormData = () => {
+    const { email, password, confirmPassword } = signupFormData;
+    const newErrors = {};
+
+    const [isValidEmail, emailErrorMessage] = validateEmail(email);
+
+    if (!isValidEmail) {
+      newErrors.email = emailErrorMessage;
+    }
+
+    const [isValidPassword, passwordErrorMessage] = validatePassword(
+      password,
+      confirmPassword
+    );
+
+    if (!isValidPassword) {
+      newErrors.password = passwordErrorMessage;
+    }
+
+    setSignupFormDataErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
     setSignupFormData((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleSignupFormSubmit = (event) => {
+  const handleSignupFormSubmit = async (event) => {
     event.preventDefault();
-    console.log("Signing up...");
+
+    if (!validateFormData()) {
+      return;
+    }
+
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    signupFormData.timezone = timezone;
+
+    try {
+      const response = await fetch("http://localhost:8080/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(signupFormData),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        const user = result.data;
+        dispatch(login(user));
+        return navigate(`/${PATHNAMES.DASHBOARD}`);
+      } else {
+        throw new Error(result.error.message);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   return (
@@ -57,6 +125,7 @@ function Signup() {
           onChange={(e) => handleInputChange(e)}
           placeholder="i.e. grace.hopper@email.com"
         />
+        <p>{signupFormDataErrors.email}</p>
         <div className="group-row">
           <div>
             <label htmlFor="signup-password">Password</label>
@@ -81,6 +150,7 @@ function Signup() {
             />
           </div>
         </div>
+        <p>{signupFormDataErrors.password}</p>
         <button type="submit">Signup</button>
       </form>
       <p className="form-link">
