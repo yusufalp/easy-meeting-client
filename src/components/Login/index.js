@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
+import { login } from "../../store/features/authSlice";
 import { PATHNAMES } from "../../constants";
 
 function Login() {
@@ -10,6 +12,7 @@ function Login() {
   });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -33,7 +36,7 @@ function Login() {
 
       if (result.success) {
         const user = result.data;
-        console.log(user);
+        dispatch(login(user));
         return navigate(`/${PATHNAMES.DASHBOARD}`);
       }
     } catch (error) {
