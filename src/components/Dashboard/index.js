@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
+import "./Dashboard.css";
 
 function Dashboard() {
   const [userEvents, setUserEvents] = useState([]);
@@ -48,6 +51,7 @@ function Dashboard() {
           );
 
           const eventsDetails = await Promise.all(eventsDetailsPromises);
+
           setUserEventsDetails(eventsDetails);
         } else {
           throw new Error(result.error.message);
@@ -68,28 +72,17 @@ function Dashboard() {
   return (
     <div>
       <h1>Dashboard for {user.firstName}</h1>
-      <table>
-        <thead>
-          <tr>
-            <td>Event Title</td>
-            <td colSpan={2}>Actions</td>
-          </tr>
-        </thead>
-        <tbody>
-          {userEventsDetails &&
-            userEventsDetails.map((userEvent) => (
-              <tr key={userEvent._id}>
-                <td>{userEvent.title}</td>
-                <td>
-                  <button>Details</button>
-                </td>
-                <td>
-                  <button>{userEvent.owner === user._id && "Archive"}</button>
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
+      <h2>Registered Events</h2>
+      <ul>
+        {userEventsDetails &&
+          userEventsDetails.map((userEvent) => (
+            <li key={userEvent._id}>
+              <Link to={`${user._id}/events/${userEvent._id}`}>
+                {userEvent.title}
+              </Link>
+            </li>
+          ))}
+      </ul>
     </div>
   );
 }
