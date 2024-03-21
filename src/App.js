@@ -8,6 +8,7 @@ import Signup from "./components/Signup";
 import CreateEvent from "./components/CreateEvent";
 import JoinEvent from "./components/JoinEvent";
 import Dashboard from "./components/Dashboard";
+import Event from "./components/Event";
 
 import { PATHNAMES } from "./constants";
 
@@ -23,6 +24,10 @@ function App() {
         <Route path={PATHNAMES.CREATE} element={<CreateEvent />} />
         <Route path={PATHNAMES.JOIN} element={<JoinEvent />} />
         <Route path={PATHNAMES.DASHBOARD} element={<Dashboard />} />
+        <Route
+          path={`${PATHNAMES.DASHBOARD}/:userId/events/:eventId`}
+          element={<Event />}
+        />
       </Routes>
     </div>
   );
