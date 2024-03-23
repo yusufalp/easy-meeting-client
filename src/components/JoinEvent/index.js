@@ -9,7 +9,7 @@ function JoinEvent() {
 
   const navigate = useNavigate();
 
-  const handleEventIdInputChange = (event) => {
+  const handleInputChange = (event) => {
     setEventId(event.target.value);
   };
 
@@ -47,7 +47,7 @@ function JoinEvent() {
           name="eventId"
           id="eventId"
           value={eventId}
-          onChange={handleEventIdInputChange}
+          onChange={handleInputChange}
         />
         <button type="submit" disabled={!eventId}>
           Join
