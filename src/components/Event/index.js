@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import EventParticipants from "./EventParticipants";
+import EventTimeSlots from "./EventTimeSlots";
+
 function Event() {
   const [currentEvent, setCurrentEvent] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -45,12 +48,9 @@ function Event() {
       ) : (
         <>
           <h2>{currentEvent.title}</h2>
-          <p>Participants</p>
-          <ul>
-            {currentEvent.participants.map((participant) => (
-              <li key={participant}>{participant}</li>
-            ))}
-          </ul>
+
+          <EventParticipants participants={currentEvent.participants} />
+          <EventTimeSlots timeSlots={currentEvent.timeSlots} />
         </>
       )}
     </main>
