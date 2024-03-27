@@ -37,3 +37,10 @@ export function validatePassword(password, confirmPassword) {
 
   return [valid, message];
 }
+
+export function convertLocalDateTimeToMilliseconds(date, time) {
+  const dateTimeString = `${date}T${time}`;
+  const givenDate = new Date(dateTimeString);
+
+  return givenDate.getTime();
+}

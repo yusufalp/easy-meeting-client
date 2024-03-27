@@ -1,6 +1,11 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+
+import { convertLocalDateTimeToMilliseconds } from "../../utils";
 
 function CreateEvent() {
+  const user = useSelector((state) => state.auth.user);
+
   const [createEventFormData, setCreateEventFormData] = useState({
     title: "",
     startDate: "",
@@ -18,12 +23,31 @@ function CreateEvent() {
     }));
   };
 
+  const handleCreateEventFormSubmit = async (event) => {
+    event.preventDefault();
+
+    const body = {
+      title: createEventFormData.title,
+      start: convertLocalDateTimeToMilliseconds(
+        createEventFormData.startDate,
+        createEventFormData.startTime
+      ),
+      end: convertLocalDateTimeToMilliseconds(
+        createEventFormData.endDate,
+        createEventFormData.endTime
+      ),
+      ownerId: user._id,
+    };
+
+    console.log(body);
+  };
+
   console.log(createEventFormData);
 
   return (
     <div>
       <h1>Create Event</h1>
-      <form className="form-bg">
+      <form className="form-bg" onSubmit={handleCreateEventFormSubmit}>
         <label htmlFor="title">Event Title</label>
         <input
           type="text"
