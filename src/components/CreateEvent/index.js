@@ -15,10 +15,10 @@ function CreateEvent() {
     endTime: "17:00",
     includeWeekends: false,
   });
-  const [timeSlots, setTimeSlots] = useState([]);
+  const [selectedTimeSlots, setSelectedTimeSlots] = useState([]);
 
   useEffect(() => {
-    setTimeSlots((prevSlots) =>
+    setSelectedTimeSlots((prevSlots) =>
       prevSlots.map((slots) =>
         slots.map((slot) =>
           slot && slot.weekend
@@ -60,7 +60,7 @@ function CreateEvent() {
       `${createEventFormData.endDate}T${createEventFormData.endTime}`
     );
 
-    setTimeSlots(updatedDates);
+    setSelectedTimeSlots(updatedDates);
   }, [
     createEventFormData.endDate,
     createEventFormData.endTime,
@@ -69,14 +69,14 @@ function CreateEvent() {
   ]);
 
   const handleSelectedSlotChange = (rowIndex, slotIndex) => {
-    const updatedSlots = timeSlots.slice();
+    const updatedSlots = selectedTimeSlots.slice();
 
     updatedSlots[rowIndex][slotIndex] = {
       ...updatedSlots[rowIndex][slotIndex],
       selected: !updatedSlots[rowIndex][slotIndex].selected,
     };
 
-    setTimeSlots(updatedSlots);
+    setSelectedTimeSlots(updatedSlots);
   };
 
   const handleInputChange = (event) => {
@@ -91,6 +91,20 @@ function CreateEvent() {
   const handleCreateEventFormSubmit = async (event) => {
     event.preventDefault();
 
+    const timeSlots = [];
+
+    for (let selectedTimeSlot of selectedTimeSlots) {
+      for (let slot of selectedTimeSlot) {
+        if (slot && slot.selected) {
+          timeSlots.push({
+            date: slot.date,
+            participantAvailability: [],
+            commonSlots: [],
+          });
+        }
+      }
+    }
+
     const body = {
       title: createEventFormData.title,
       start: convertLocalDateTimeToMilliseconds(
@@ -102,6 +116,7 @@ function CreateEvent() {
         createEventFormData.endTime
       ),
       ownerId: user._id,
+      timeSlots
     };
 
     console.log(body);
@@ -181,7 +196,6 @@ function CreateEvent() {
             name="includeWeekends"
             checked={createEventFormData.includeWeekends}
             onChange={handleInputChange}
-            required
           />
           <label htmlFor="includeWeekends"> Include Weekends</label>
         </div>
@@ -190,7 +204,7 @@ function CreateEvent() {
       </form>
       {
         <CreateEventCalendar
-          timeSlots={timeSlots}
+          selectedTimeSlots={selectedTimeSlots}
           handleSelectedSlotChange={handleSelectedSlotChange}
         />
       }
