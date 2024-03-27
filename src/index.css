@@ -22,6 +22,13 @@ form {
   flex-direction: column;
 }
 
+form .legend {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
 form label {
   color: #666666;
   margin: 24px 0 4px;
@@ -118,7 +125,6 @@ td:hover {
     margin: 80px auto;
   }
 }
-
 
 @media screen and (max-width: 320px) {
   html {

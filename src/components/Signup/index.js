@@ -101,6 +101,7 @@ function Signup() {
   return (
     <div className="form-bg">
       <form onSubmit={handleSignupFormSubmit}>
+        <p className="legend">Create an account</p>
         <div className="group-row">
           <div>
             <label htmlFor="firstName">First Name</label>
@@ -112,7 +113,9 @@ function Signup() {
               onChange={(e) => handleInputChange(e)}
               placeholder="Grace"
             />
-            <p className="formValidationError">{signupFormDataErrors.firstName}</p>
+            <p className="formValidationError">
+              {signupFormDataErrors.firstName}
+            </p>
           </div>
           <div>
             <label htmlFor="lastName">Last Name</label>
@@ -124,7 +127,9 @@ function Signup() {
               onChange={(e) => handleInputChange(e)}
               placeholder="Hopper"
             />
-            <p className="formValidationError">{signupFormDataErrors.lastName}</p>
+            <p className="formValidationError">
+              {signupFormDataErrors.lastName}
+            </p>
           </div>
         </div>
         <label htmlFor="signup-email">Email</label>

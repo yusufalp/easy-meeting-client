@@ -70,6 +70,7 @@ function Login() {
   return (
     <div className="form-bg">
       <form onSubmit={handleLoginFormSubmit}>
+        <p className="legend">Log into your account</p>
         <label htmlFor="login-email">Email</label>
         <input
           type="text"
