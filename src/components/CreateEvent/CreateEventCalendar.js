@@ -2,9 +2,7 @@ import React from "react";
 
 const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
-function CreateEventCalendar({ timeSlots, handleSelectedSlotChange }) {
-  console.log(timeSlots);
-
+function CreateEventCalendar({ selectedTimeSlots, handleSelectedSlotChange }) {
   return (
     <table className="table-bg">
       <caption>Confirm the selected days below</caption>
@@ -16,7 +14,7 @@ function CreateEventCalendar({ timeSlots, handleSelectedSlotChange }) {
         </tr>
       </thead>
       <tbody>
-        {timeSlots.map((row, rowIndex) => (
+        {selectedTimeSlots.map((row, rowIndex) => (
           <tr>
             {row.map((slot, slotIndex) => (
               <td
