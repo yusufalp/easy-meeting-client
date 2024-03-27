@@ -79,7 +79,7 @@ function Login() {
           onChange={(e) => handleInputChange(e)}
           placeholder="i.e. grace.hopper@email.com"
         />
-        <p>{loginFormDataErrors.email}</p>
+        <p className="formValidationError">{loginFormDataErrors.email}</p>
         <label htmlFor="login-password">Password</label>
         <input
           type="password"

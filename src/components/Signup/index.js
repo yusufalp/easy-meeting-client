@@ -26,8 +26,17 @@ function Signup() {
   const dispatch = useDispatch();
 
   const validateFormData = () => {
-    const { email, password, confirmPassword } = signupFormData;
+    const { firstName, lastName, email, password, confirmPassword } =
+      signupFormData;
     const newErrors = {};
+
+    if (firstName.trim() === "") {
+      newErrors.firstName = "First name is required!";
+    }
+
+    if (lastName.trim() === "") {
+      newErrors.lastName = "Last name is required!";
+    }
 
     const [isValidEmail, emailErrorMessage] = validateEmail(email);
 
@@ -103,6 +112,7 @@ function Signup() {
               onChange={(e) => handleInputChange(e)}
               placeholder="Grace"
             />
+            <p className="formValidationError">{signupFormDataErrors.firstName}</p>
           </div>
           <div>
             <label htmlFor="lastName">Last Name</label>
@@ -114,6 +124,7 @@ function Signup() {
               onChange={(e) => handleInputChange(e)}
               placeholder="Hopper"
             />
+            <p className="formValidationError">{signupFormDataErrors.lastName}</p>
           </div>
         </div>
         <label htmlFor="signup-email">Email</label>
@@ -125,7 +136,7 @@ function Signup() {
           onChange={(e) => handleInputChange(e)}
           placeholder="i.e. grace.hopper@email.com"
         />
-        <p>{signupFormDataErrors.email}</p>
+        <p className="formValidationError">{signupFormDataErrors.email}</p>
         <div className="group-row">
           <div>
             <label htmlFor="signup-password">Password</label>
@@ -150,7 +161,7 @@ function Signup() {
             />
           </div>
         </div>
-        <p>{signupFormDataErrors.password}</p>
+        <p className="formValidationError">{signupFormDataErrors.password}</p>
         <button type="submit">Signup</button>
       </form>
       <p className="form-link">
