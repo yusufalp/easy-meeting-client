@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
+import CreateEventCalendar from "./CreateEventCalendar";
 import { convertLocalDateTimeToMilliseconds } from "../../utils";
 
 function CreateEvent() {
@@ -12,7 +13,60 @@ function CreateEvent() {
     startTime: "09:00",
     endDate: "",
     endTime: "17:00",
+    includeWeekends: false,
   });
+  const [timeSlots, setTimeSlots] = useState([]);
+
+  useEffect(() => {
+    setTimeSlots((prevSlots) =>
+      prevSlots.map((slots) =>
+        slots.map((slot) =>
+          slot && slot.weekend
+            ? { ...slot, selected: createEventFormData.includeWeekends }
+            : slot
+        )
+      )
+    );
+  }, [createEventFormData.includeWeekends]);
+
+  useEffect(() => {
+    const generateDates = (start, end) => {
+      const dates = [];
+
+      const currentDate = new Date(start);
+      const lastDate = new Date(end);
+
+      while (currentDate <= lastDate) {
+        const row = Array(7).fill(null);
+
+        let index = currentDate.getDay();
+        for (let i = index; i < row.length; i++) {
+          row[currentDate.getDay()] = {
+            date: currentDate.getTime(),
+            weekend: currentDate.getDay() === 6 || currentDate.getDay() === 0,
+            selected: currentDate.getDay() !== 6 && currentDate.getDay() !== 0,
+          };
+          currentDate.setDate(currentDate.getDate() + 1);
+        }
+
+        dates.push(row);
+      }
+
+      return dates;
+    };
+
+    const updatedDates = generateDates(
+      `${createEventFormData.startDate}T${createEventFormData.startTime}`,
+      `${createEventFormData.endDate}T${createEventFormData.endTime}`
+    );
+
+    setTimeSlots(updatedDates);
+  }, [
+    createEventFormData.endDate,
+    createEventFormData.endTime,
+    createEventFormData.startDate,
+    createEventFormData.startTime,
+  ]);
 
   const handleInputChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -41,8 +95,6 @@ function CreateEvent() {
 
     console.log(body);
   };
-
-  console.log(createEventFormData);
 
   return (
     <div>
@@ -125,6 +177,7 @@ function CreateEvent() {
         <button type="submit">Create</button>
         <p>* All fields are required</p>
       </form>
+      {<CreateEventCalendar timeSlots={timeSlots} />}
     </div>
   );
 }
