@@ -68,6 +68,17 @@ function CreateEvent() {
     createEventFormData.startTime,
   ]);
 
+  const handleSelectedSlotChange = (rowIndex, slotIndex) => {
+    const updatedSlots = timeSlots.slice();
+
+    updatedSlots[rowIndex][slotIndex] = {
+      ...updatedSlots[rowIndex][slotIndex],
+      selected: !updatedSlots[rowIndex][slotIndex].selected,
+    };
+
+    setTimeSlots(updatedSlots);
+  };
+
   const handleInputChange = (event) => {
     const { name, value, type, checked } = event.target;
 
@@ -174,10 +185,15 @@ function CreateEvent() {
           />
           <label htmlFor="includeWeekends"> Include Weekends</label>
         </div>
-        <button type="submit">Create</button>
+        <button type="submit">Create Event</button>
         <p>* All fields are required</p>
       </form>
-      {<CreateEventCalendar timeSlots={timeSlots} />}
+      {
+        <CreateEventCalendar
+          timeSlots={timeSlots}
+          handleSelectedSlotChange={handleSelectedSlotChange}
+        />
+      }
     </div>
   );
 }
