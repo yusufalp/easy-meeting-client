@@ -7,3 +7,5 @@ export const PATHNAMES = {
   LOGIN: "login",
   SIGNUP: "signup"
 };
+
+export const DAYS_OF_WEEK = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];

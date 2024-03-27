@@ -1,6 +1,6 @@
 import React from "react";
 
-const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+import { DAYS_OF_WEEK } from "../../constants";
 
 function CreateEventCalendar({ selectedTimeSlots, handleSelectedTimeSlotChange }) {
   return (
@@ -8,7 +8,7 @@ function CreateEventCalendar({ selectedTimeSlots, handleSelectedTimeSlotChange }
       <caption>Confirm the selected days below</caption>
       <thead>
         <tr>
-          {daysOfWeek.map((day, index) => (
+          {DAYS_OF_WEEK.map((day, index) => (
             <th key={index}>{day}</th>
           ))}
         </tr>
