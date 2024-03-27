@@ -124,7 +124,7 @@ function CreateEvent() {
 
   return (
     <div>
-      <h1>Create Event</h1>
+      <h2>Create Event</h2>
       <form className="form-bg" onSubmit={handleCreateEventFormSubmit}>
         <label htmlFor="title">Event Title</label>
         <input

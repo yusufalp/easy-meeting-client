@@ -68,7 +68,7 @@ function Dashboard() {
 
   return (
     <main>
-      <h1>Welcome to your dashboard, {user.firstName}</h1>
+      <h2>Welcome to your dashboard, {user.firstName}</h2>
       {isLoading ? (
         <p>Loading...</p>
       ) : userEventsDetails.length > 0 ? (
