@@ -68,7 +68,7 @@ function CreateEvent() {
     createEventFormData.startTime,
   ]);
 
-  const handleSelectedSlotChange = (rowIndex, slotIndex) => {
+  const handleSelectedTimeSlotChange = (rowIndex, slotIndex) => {
     const updatedSlots = selectedTimeSlots.slice();
 
     updatedSlots[rowIndex][slotIndex] = {
@@ -205,7 +205,7 @@ function CreateEvent() {
       {
         <CreateEventCalendar
           selectedTimeSlots={selectedTimeSlots}
-          handleSelectedSlotChange={handleSelectedSlotChange}
+          handleSelectedTimeSlotChange={handleSelectedTimeSlotChange}
         />
       }
     </div>
