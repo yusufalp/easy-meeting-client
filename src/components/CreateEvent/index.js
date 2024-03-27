@@ -116,7 +116,7 @@ function CreateEvent() {
         createEventFormData.endTime
       ),
       ownerId: user._id,
-      timeSlots
+      timeSlots,
     };
 
     console.log(body);
@@ -124,8 +124,8 @@ function CreateEvent() {
 
   return (
     <div>
-      <h2>Create Event</h2>
       <form className="form-bg" onSubmit={handleCreateEventFormSubmit}>
+        <p className="legend">Create an event</p>
         <label htmlFor="title">Event Title</label>
         <input
           type="text"
@@ -199,7 +199,7 @@ function CreateEvent() {
           />
           <label htmlFor="includeWeekends"> Include Weekends</label>
         </div>
-        <button type="submit">Create Event</button>
+        <button type="submit">Create</button>
         <p>* All fields are required</p>
       </form>
       {

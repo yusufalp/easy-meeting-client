@@ -39,8 +39,8 @@ function JoinEvent() {
   };
   return (
     <div>
-      <h2>Join Event</h2>
       <form className="form-bg" onSubmit={handleJoinEventFormSubmit}>
+        <p className="legend">Join an event</p>
         <label htmlFor="eventId">Event Id</label>
         <input
           type="text"
