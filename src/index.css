@@ -89,8 +89,16 @@ form button[type="submit"]:disabled {
   padding: 16px;
 }
 
-table caption {
+table caption:nth-child(1){
+  margin-top: 32px;
+}
+
+table caption:nth-child(2){
   margin-bottom: 16px;
+}
+
+tbody tr td:first-child {
+  border-right: 1px solid black;
 }
 
 td {
@@ -126,7 +134,7 @@ td:hover {
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 480px) {
   html {
     font-size: 12px;
   }
