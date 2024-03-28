@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 
 import CreateEventCalendar from "./CreateEventCalendar";
 import { convertLocalDateTimeToMilliseconds } from "../../utils";
+import { useNavigate } from "react-router-dom";
+import { PATHNAMES } from "../../constants";
 
 function CreateEvent() {
   const user = useSelector((state) => state.auth.user);
@@ -17,6 +19,8 @@ function CreateEvent() {
   });
   const [selectedTimeSlots, setSelectedTimeSlots] = useState([]);
   const [selectionConfirmed, setSelectionConfirmed] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setSelectedTimeSlots((prevSlots) =>
@@ -120,12 +124,31 @@ function CreateEvent() {
       timeSlots,
     };
 
-    console.log(body);
+    try {
+      const response = await fetch(`http://localhost:8080/api/events`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        navigate(
+          `/${PATHNAMES.DASHBOARD}/${user._id}/events/${result.data._id}`
+        );
+      } else {
+        throw new Error(result.error.message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const isDatesSelected =
-    !createEventFormData.startDate ||
-    !createEventFormData.endDate;
+    !createEventFormData.startDate || !createEventFormData.endDate;
 
   return (
     <div>
@@ -214,7 +237,7 @@ function CreateEvent() {
                 id="selectionConfirmed"
                 name="selectionConfirmed"
                 checked={selectionConfirmed}
-                onChange={()=>setSelectionConfirmed(!selectionConfirmed)}
+                onChange={() => setSelectionConfirmed(!selectionConfirmed)}
               />
               <label htmlFor="selectionConfirmed"> Confirm selection</label>
             </div>
