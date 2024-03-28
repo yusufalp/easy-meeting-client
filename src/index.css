@@ -46,6 +46,10 @@ form input:focus {
   border-color: #4caf50;
 }
 
+form input[type="checkbox"] {
+  margin: 16px auto;
+}
+
 form button[type="submit"] {
   color: #ffffff;
   background-color: #3c4f76;
