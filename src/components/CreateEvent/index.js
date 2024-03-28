@@ -16,6 +16,7 @@ function CreateEvent() {
     includeWeekends: false,
   });
   const [selectedTimeSlots, setSelectedTimeSlots] = useState([]);
+  const [selectionConfirmed, setSelectionConfirmed] = useState(false);
 
   useEffect(() => {
     setSelectedTimeSlots((prevSlots) =>
@@ -122,6 +123,10 @@ function CreateEvent() {
     console.log(body);
   };
 
+  const isDatesSelected =
+    !createEventFormData.startDate ||
+    !createEventFormData.endDate;
+
   return (
     <div>
       <form className="form-bg" onSubmit={handleCreateEventFormSubmit}>
@@ -198,16 +203,27 @@ function CreateEvent() {
             onChange={handleInputChange}
           />
           <label htmlFor="includeWeekends"> Include Weekends</label>
+          {!isDatesSelected && (
+            <div>
+              <CreateEventCalendar
+                selectedTimeSlots={selectedTimeSlots}
+                handleSelectedTimeSlotChange={handleSelectedTimeSlotChange}
+              />
+              <input
+                type="checkbox"
+                id="selectionConfirmed"
+                name="selectionConfirmed"
+                checked={selectionConfirmed}
+                onChange={()=>setSelectionConfirmed(!selectionConfirmed)}
+              />
+              <label htmlFor="selectionConfirmed"> Confirm selection</label>
+            </div>
+          )}
         </div>
-        <button type="submit">Create</button>
-        <p>* All fields are required</p>
+        <button type="submit" disabled={!selectionConfirmed}>
+          Create
+        </button>
       </form>
-      {
-        <CreateEventCalendar
-          selectedTimeSlots={selectedTimeSlots}
-          handleSelectedTimeSlotChange={handleSelectedTimeSlotChange}
-        />
-      }
     </div>
   );
 }
