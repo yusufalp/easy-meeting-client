@@ -5,7 +5,22 @@ export const PATHNAMES = {
   DASHBOARD: "dashboard",
   LOGOUT: "logout",
   LOGIN: "login",
-  SIGNUP: "signup"
+  SIGNUP: "signup",
 };
 
 export const DAYS_OF_WEEK = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+
+export const MONTHS_OF_YEAR = [
+  "JAN",
+  "FEB",
+  "MAR",
+  "APR",
+  "MAY",
+  "JUN",
+  "JUL",
+  "AUG",
+  "SEP",
+  "OCT",
+  "NOV",
+  "DEC",
+];
