@@ -20,7 +20,7 @@ function CreateEventCalendar({
       </thead>
       <tbody>
         {selectedTimeSlots.map((row, rowIndex) => (
-          <tr>
+          <tr key={rowIndex}>
             <td>
               {
                 MONTHS_OF_YEAR[
@@ -30,6 +30,7 @@ function CreateEventCalendar({
             </td>
             {row.map((slot, slotIndex) => (
               <td
+                key={slotIndex}
                 className={slot && slot.selected ? "selected" : ""}
                 onClick={() =>
                   handleSelectedTimeSlotChange(rowIndex, slotIndex)
