@@ -1,13 +1,18 @@
 import React from "react";
 
-import { DAYS_OF_WEEK } from "../../constants";
+import { DAYS_OF_WEEK, MONTHS_OF_YEAR } from "../../constants";
 
-function CreateEventCalendar({ selectedTimeSlots, handleSelectedTimeSlotChange }) {
+function CreateEventCalendar({
+  selectedTimeSlots,
+  handleSelectedTimeSlotChange,
+}) {
   return (
-    <table className="table-bg">
+    <table>
       <caption>Confirm the selected days below</caption>
+      <caption>Update single date by clicking on it</caption>
       <thead>
         <tr>
+          <th>Month</th>
           {DAYS_OF_WEEK.map((day, index) => (
             <th key={index}>{day}</th>
           ))}
@@ -16,10 +21,19 @@ function CreateEventCalendar({ selectedTimeSlots, handleSelectedTimeSlotChange }
       <tbody>
         {selectedTimeSlots.map((row, rowIndex) => (
           <tr>
+            <td>
+              {
+                MONTHS_OF_YEAR[
+                  new Date(row.find((el) => el !== null).date).getMonth()
+                ]
+              }
+            </td>
             {row.map((slot, slotIndex) => (
               <td
                 className={slot && slot.selected ? "selected" : ""}
-                onClick={() => handleSelectedTimeSlotChange(rowIndex, slotIndex)}
+                onClick={() =>
+                  handleSelectedTimeSlotChange(rowIndex, slotIndex)
+                }
               >
                 {slot && new Date(slot.date).getDate()}
               </td>
