@@ -46,6 +46,9 @@ function CreateEvent() {
 
         let index = currentDate.getDay();
         for (let i = index; i < row.length; i++) {
+          if (new Date(currentDate).getTime() >= new Date(lastDate).getTime()){
+            break;
+          }
           row[currentDate.getDay()] = {
             date: currentDate.getTime(),
             weekend: currentDate.getDay() === 6 || currentDate.getDay() === 0,
